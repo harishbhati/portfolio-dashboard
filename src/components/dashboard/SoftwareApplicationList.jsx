@@ -1,10 +1,10 @@
 import Loader from "../Loader"
 import { Link } from "react-router-dom"
+import TableSkeleton from "../skeleton/TableSkeleton";
 
 const SoftwareApplicationList = ({isLoading, data}) => {
     const applicationList = data.softwareApplication;
     if(!data) return <p>List is empty</p>
-    if(isLoading) return <p>Loading...</p>
 
     // Sort the list in alphabatically
     const sortApplication = [...applicationList].sort((a,b) => a.name.localeCompare(b.name));
@@ -13,6 +13,7 @@ const SoftwareApplicationList = ({isLoading, data}) => {
 
     return(
         <div className="relative overflow-x-auto bg-white shadow-xs rounded-base border border-gray-200">
+            {isLoading ? (<TableSkeleton rows={4} columns={3} />) : (
             <table className="text-sm text-body rounded-base w-full">
                 <thead>
                     <tr className="border-b border-gray-200 bg-blue-50">
@@ -46,6 +47,8 @@ const SoftwareApplicationList = ({isLoading, data}) => {
                     )}
                 </tbody>
             </table>
+
+            )}
         </div>
     )
 }

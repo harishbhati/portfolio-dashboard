@@ -1,14 +1,15 @@
 import { Button } from "flowbite-react"
 import Loader from "../Loader"
 import { Link } from "react-router-dom"
+import TableSkeleton from "../skeleton/TableSkeleton";
 
 const TimelineList = ({data, isLoading}) => {
     const timelineList = data.timeline;
     if(!data) return <p>There are no list in this table.</p>
-    if(isLoading) return <p>Loading...</p>
 
     return (
         <div className="relative overflow-x-auto bg-white shadow-xs rounded-base border border-gray-200">
+            {isLoading ? (<TableSkeleton rows={4} columns={4} />) : (
             <table className="text-sm text-body rounded-base w-full">
                 <thead>
                     <tr className="border-b border-gray-200 bg-blue-50">
@@ -43,6 +44,7 @@ const TimelineList = ({data, isLoading}) => {
                     })}
                 </tbody>
             </table>
+            )}
         </div>
     )
 }

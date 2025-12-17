@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import { ToastContainer } from "react-toastify";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from './store/slices/userSlice';
 import Account from './components/Account';
 import Profile from './components/account/Profile';
@@ -22,50 +22,55 @@ import ManageProjects from './pages/ManageProjects';
 import ManageSkills from './pages/ManageSkills';
 import ManageTimeline from './pages/ManageTimeline';
 import ManageSoftware from './pages/ManageSoftware';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector(state => state.user);
 
   useEffect(() => {
-    dispatch(getUser());
-    // dispatch(getAllMessages());
-    // dispatch(getAllTimeline());
-    // dispatch(getAllSkills());
-    // dispatch(getAllApplication());
-  }, [dispatch]);
+    const token = localStorage.getItem("token");
+    if (token && isAuthenticated) {
+      dispatch(getUser());
+    }
+  }, [dispatch, isAuthenticated]);
+    
 
   return (
-    <Router>
+     <Router>
       <Routes>
+
         {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />
 
-        {/* Protected Routes with Sidebar/Layout */}
-        <Route path="/" element={<HomePage />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="account" element={<Account />}>
-            <Route index element={<Profile />} />
-            <Route path="updateProfile" element={<UpdateProfile />} />
-            <Route path="updatePassword" element={<UpdatePassword />} />
+        {/* Protected Routes */}
+        {/* <Route element={<ProtectedRoute />}> */}
+          <Route path="/" element={<HomePage />}>
+            <Route index element={<Dashboard />} />
+
+            <Route path="account" element={<Account />}>
+              <Route index element={<Profile />} />
+              <Route path="updateProfile" element={<UpdateProfile />} />
+              <Route path="updatePassword" element={<UpdatePassword />} />
+            </Route>
+
+            <Route path="messages" element={<Messages />} />
+            <Route path="timeline" element={<AddTimeline />} />
+            <Route path="skill" element={<AddSkill />} />
+            <Route path="application" element={<AddApplication />} />
+            <Route path="project" element={<AddProject />} />
           </Route>
-          <Route path="messages" element={<Messages />} />
-          <Route path="timeline" element={<AddTimeline />} />
-          <Route path='skill' element={<AddSkill />} />
-          <Route path='application' element={<AddApplication />} />
-           <Route path='project' element={<AddProject />} />
-        </Route>
-        
-        <Route path="manage/projects" element={<ManageProjects />} />
-        <Route path="manage/skills" element={<ManageSkills />} />
-        <Route path="manage/timeline" element={<ManageTimeline />} />
-        <Route path='manage/software' element={<ManageSoftware />} />
-        {/* <Route path="manage/skills" element={<ManageSkills />} />
-        <Route path="manage/timeline" element={<ManageTimeline />} />
-        <Route path="manage/project/update/:id" element={<UpdateProject />} />
-        <Route path="manage/project/view/:id" element={<ViewProject />} /> */}
+
+          <Route path="manage/projects" element={<ManageProjects />} />
+          <Route path="manage/skills" element={<ManageSkills />} />
+          <Route path="manage/timeline" element={<ManageTimeline />} />
+          <Route path="manage/software" element={<ManageSoftware />} />
+        {/* </Route> */}
+
       </Routes>
+
       <ToastContainer position="bottom-right" theme="dark" />
     </Router>
   );

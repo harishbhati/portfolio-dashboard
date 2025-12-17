@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import ProjectCardSkeleton from "../skeleton/ProjectCardSkeleton";
 
 const ProjectCompleted = ({projects, isLoading, error}) => {
+    if(isLoading) return <ProjectCardSkeleton />
     if(!projects) return <p>The Project list are empty.</p>
-    if(isLoading) return <p>Loading...</p>
     if (error) return <p>{error}</p>
     return(
         <div className="bg-white block p-6 rounded-base shadow-xs w-full">

@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import ProjectCardSkeleton from "../skeleton/ProjectCardSkeleton";
 
 const SkillsCard = ({skills, isLoading}) => {
+    if(isLoading) return <ProjectCardSkeleton />
     if(!skills) return <p>The skill list is empty</p>
-    if(isLoading) return <p>Loading...</p>
     return (
         <div className="bg-white block p-6 rounded-base shadow-xs w-full">
             <h3 className="mb-6 text-xl font-semibold">Skills</h3>

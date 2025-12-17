@@ -53,6 +53,7 @@ const Login = () => {
             type="email"
             id="email"
             value={email}
+            autoComplete="email"
             onChange={(e) => setEmail(e.target.value)}
             className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
             required
@@ -70,7 +71,7 @@ const Login = () => {
             type="password"
             id="password"
             value={password}
-            autocomplete="current-password"
+            autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)}
             className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
             required

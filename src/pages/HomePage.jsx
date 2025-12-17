@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearAllUserErrors, logoutUser } from "../store/slices/userSlice";
 import { toast } from "react-toastify";
 import { clearMessage } from "../store/slices/userSlice";
+import UserHeaderSkeleton from "../components/skeleton/UserHeaderSkeleton ";
 
 const navItems = [
   { name: "Dashboard", icon: <Package size={20} />, path: "/" },
@@ -22,11 +23,11 @@ const navItems = [
   { name: "Add Application", icon: <LayoutGrid size={20} />, path: "/application" },
   { name: "Account", icon: <User size={20} />, path: "/account" },
   { name: "Add Timeline", icon: <History size={20} />, path: "/timeline" },
-  { name: "Messages", icon: <MessageSquareMore size={20} />, path: "/messages" },
 ];
 
 const HomePage = () => {
-  const { error, message, user } = useSelector((state) => state.user);
+  const { error, message, user, loading } = useSelector((state) => state.user);
+  // const token = localStorage.getItem("token");
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
 
@@ -91,12 +92,14 @@ const HomePage = () => {
 
       {/* Content Area */}
       <div className="flex-1 flex flex-col">
-        {user && (
-            <header className="px-4 py-3 bg-white border-b border-gray-100 flex items-center gap-6 justify-end">
-                <h2 className="text-1xl font-semibold text-heading">{`Welcome, ${user.fullname ? user.fullname : ''}`}</h2>
+        {loading ? (
+          <UserHeaderSkeleton />
+        ) : (
+          <header className="px-4 py-3 bg-white border-b border-gray-100 flex items-center gap-6 justify-end">
+                <h2 className="text-1xl font-semibold text-heading">{`Welcome, ${user?.fullname ? user.fullname : ''}`}</h2>
                 <img
                 src={user?.avtar?.url || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'}
-                alt={user.fullname}
+                alt={user?.fullname}
                 className="w-12 h-12 rounded-full object-cover"
                 />
             </header>

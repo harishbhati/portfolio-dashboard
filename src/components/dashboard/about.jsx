@@ -1,9 +1,10 @@
 import { useState } from "react";
+import AboutSkeleton from "../skeleton/AboutSkeleton";
 
 const About = ({user, isLoading}) => {
     const [expanded, setExpanded] = useState(false);
 
-    if(isLoading) return <p>Loading...</p>
+    if(isLoading) return <AboutSkeleton />
     if (!user) return <p>The user didn't have any details.</p>;
     const {aboutMe, portfolio} = user; 
 
