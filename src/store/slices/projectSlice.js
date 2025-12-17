@@ -14,7 +14,7 @@ const projectSlice = createSlice({
     reducers: {
         // get Project reducer
         getAllProjectRequest: (state) => {
-            state.projects = [];
+            // state.projects = [];
             state.loading = true;
             state.error = null;
         },
@@ -31,7 +31,7 @@ const projectSlice = createSlice({
         },
         // delete Project reducer
         deleteProjectRequest: (state) => {
-            state.projects = [];
+            // state.projects = [];
             state.loading = true;
             state.error = null;
         },
@@ -48,7 +48,7 @@ const projectSlice = createSlice({
         },
         // add Project reducer
         addProjectRequest: (state) => {
-            state.projects = [];
+            // state.projects = [];
             state.loading = true;
             state.error = null;
         },
@@ -65,7 +65,7 @@ const projectSlice = createSlice({
         },
         // update Project reducer
         updateProjectRequest: (state) => {
-            state.projects = [];
+            // state.projects = [];
             state.loading = true;
             state.error = null;
         },
