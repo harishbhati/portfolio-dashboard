@@ -47,9 +47,6 @@ const TimelineList = ({data, isLoading, error}) => {
                     {timelineItem.timeline.to ? timelineItem.timeline.to : "Present"}
                   </td>
                   <td className="px-6 py-4 flex gap-2 items-center justify-center">
-                    <Link className="text-blue-800">
-                      <Pencil className="w-[18px] h-[18px]" />
-                    </Link>
                     <Link className="text-blue-800" onClick={() => handleDelete(timelineItem._id)}>
                       <Trash2 className="w-[18px] h-[18px]" />
                     </Link>

@@ -22,7 +22,6 @@ import ManageProjects from './pages/ManageProjects';
 import ManageSkills from './pages/ManageSkills';
 import ManageTimeline from './pages/ManageTimeline';
 import ManageSoftware from './pages/ManageSoftware';
-import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const dispatch = useDispatch();
@@ -59,6 +58,7 @@ function App() {
             <Route path="messages" element={<Messages />} />
             <Route path="timeline" element={<AddTimeline />} />
             <Route path="skill" element={<AddSkill />} />
+            <Route path="/skills/edit/:id" element={<AddSkill />} />
             <Route path="application" element={<AddApplication />} />
             <Route path="project" element={<AddProject />} />
           </Route>

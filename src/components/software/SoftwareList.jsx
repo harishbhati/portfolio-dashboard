@@ -57,9 +57,6 @@ const SoftwareList = ({ data, isLoading, error }) => {
                     />
                   </td>
                   <td className="px-6 py-4 flex gap-2 items-center justify-center">
-                    <Link className="text-blue-800">
-                      <Pencil className="w-[18px] h-[18px]" />
-                    </Link>
                     <Link
                       className="text-blue-800"
                       onClick={() => handleDelete(applicationItem._id)}

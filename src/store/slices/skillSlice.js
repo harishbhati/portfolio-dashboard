@@ -14,7 +14,6 @@ const skillSlice = createSlice({
     reducers : {
         // get skill reducer
         getAllSkillRequest: (state) => {
-            state.skills = [];
             state.loading = true;
             state.error = null;
         },
@@ -25,7 +24,6 @@ const skillSlice = createSlice({
             state.message = null;
         },
          getAllSkillFailed: (state, action) => {
-            state.skills = [];
             state.loading = false;
             state.error = action.payload;
         },
@@ -53,9 +51,9 @@ const skillSlice = createSlice({
             state.error = null;
         },
          updateSkillSuccess: (state, action) => {
-           state.skills = action.payload;
-            state.loading = false;
+           state.loading = false;
             state.error = null;
+            state.message = action.payload;
         },
          updateSkillFailed: (state, action) => {
             state.skills = [];
@@ -100,7 +98,7 @@ export const getAllSkills = () => async (dispatch) =>{
     try{
         const {data} = await axios.get(`${API_BASE_URL}/skill/fetch`, {withCredentials: true});
         console.log('skill', data)
-        dispatch(skillSlice.actions.getAllSkillSuccess(data))
+        dispatch(skillSlice.actions.getAllSkillSuccess(data.skill))
         dispatch(skillSlice.actions.clearAllErrors());
     } catch(error){
         dispatch(skillSlice.actions.getAllSkillFailed(error.response.data.message))
@@ -139,18 +137,32 @@ export const deleteSkill = (id) => async (dispatch) => {
 }
 
 //method to update skill
-export const updateSkill = (id) => async (dispatch) => {
-    dispatch(skillSlice.actions.updateSkillRequest());
+export const updateSkill = (id, formData) => async (dispatch) => {
+  dispatch(skillSlice.actions.updateSkillRequest());
 
-    try {
-        const {data} = await axios.put(`${API_BASE_URL}/skill/update/${id}`, {withCredentials: true});
-        console.log('Skill updated', data)
-        dispatch(skillSlice.actions.updateSkillSuccess(id));
-        dispatch(skillSlice.actions.clearAllErrors());
-    } catch (error) {
-        dispatch(skillSlice.actions.updateSkillFailed(error.response.data.message));
-    }
-}
+  try {
+    const { data } = await axios.put(
+      `${API_BASE_URL}/skill/update/${id}`,
+      formData,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    dispatch(skillSlice.actions.updateSkillSuccess({
+      id,
+      updatedSkill: data.skill,
+      message: data.message,
+    }));
+  } catch (error) {
+    dispatch(
+      skillSlice.actions.updateSkillFailed(error.response.data.message)
+    );
+  }
+};
 // Clear all messages error
 export const clearAllErrors = () => async (dispatch) => {
     dispatch(skillSlice.actions.clearAllErrors());

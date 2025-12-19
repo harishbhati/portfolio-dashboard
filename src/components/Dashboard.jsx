@@ -30,7 +30,7 @@ const Dashboard = () => {
       dispatch(getAllApplication());
       dispatch(getAllTimeline());
    }, [dispatch]);
-   const skillList = Array.isArray(skills?.skill) ? skills.skill : [];
+   const skillList = Array.isArray(skills) ? skills : [];
 
    //skill list sort
    const sortSkillList = [...skillList].sort((a,b) => a.title.localeCompare(b.title));

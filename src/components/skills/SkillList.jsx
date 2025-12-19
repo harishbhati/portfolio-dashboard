@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const SkillList = ({data, isLoading, error}) => {
     const dispatch = useDispatch();
     const [deleting, setDeleting] = useState(false); // track delete in progress
-    const skillList = data?.skill || [];
+    const skillList = data || [];
 
     useEffect(() => {
         dispatch(getAllSkills());
@@ -34,7 +34,7 @@ const SkillList = ({data, isLoading, error}) => {
                                 <img src={skillItem?.skillIcon?.url} alt={skillItem?.title} className="w-8 h-8"/>
                             </div>
                             <div className="flex items-center gap-2">
-                                <Link className="text-blue-800">
+                                <Link to={`/skills/edit/${skillItem._id}`} className="text-blue-800">
                                     <Pencil className="w-[18px] h-[18px]" />
                                 </Link>
                                <button
